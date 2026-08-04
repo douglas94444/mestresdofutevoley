@@ -27,7 +27,7 @@ import {
 
 import heroImage from "@/assets/hero-futevolei.jpg";
 
-const CTA_HREF = "#oferta";
+const CTA_HREF = "/checkout";
 
 const FootballIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
   <svg
