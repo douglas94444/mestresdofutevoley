@@ -69,7 +69,7 @@ const trainingCategories = [
     number: "35",
     title: "Controle de Bola",
     description: "Domínio, embaixadinhas e toque de precisão.",
-    icon: Football,
+    icon: Circle,
   },
   {
     number: "30",
