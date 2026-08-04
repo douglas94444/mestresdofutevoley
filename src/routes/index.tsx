@@ -92,7 +92,7 @@ const trainingCategories = [
     number: "35",
     title: "Controle de Bola",
     description: "Domínio, embaixadinhas e toque de precisão.",
-    icon: Circle,
+    icon: FootballIcon,
   },
   {
     number: "30",
@@ -262,7 +262,7 @@ function Index() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <Circle className="h-5 w-5" />
+              <FootballIcon className="h-5 w-5" />
             </div>
             <span className="font-heading text-lg font-bold tracking-tight">147 Treinos</span>
           </div>
@@ -552,7 +552,7 @@ function Index() {
         <div className="mx-auto max-w-5xl px-4 text-center">
           <div className="flex items-center justify-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <Circle className="h-4 w-4" />
+              <FootballIcon className="h-4 w-4" />
             </div>
             <span className="font-heading text-base font-bold">147 Treinos de Futevôlei em Casa</span>
           </div>
