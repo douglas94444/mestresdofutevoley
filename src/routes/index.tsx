@@ -14,7 +14,7 @@ import {
   Clock,
   ListChecks,
   Trophy,
-  Football,
+  Circle,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
