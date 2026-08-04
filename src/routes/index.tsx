@@ -29,6 +29,30 @@ import heroImage from "@/assets/hero-futevolei.jpg";
 
 const CTA_HREF = "#oferta";
 
+const FootballIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 2v4" />
+    <path d="m4.93 4.93 2.83 2.83" />
+    <path d="M2 12h4" />
+    <path d="m4.93 19.07 2.83-2.83" />
+    <path d="M12 22v-4" />
+    <path d="m19.07 19.07-2.83-2.83" />
+    <path d="M22 12h-4" />
+    <path d="m19.07 4.93-2.83 2.83" />
+    <polygon points="12 6 8 10 12 14 16 10" />
+  </svg>
+);
+
 const CtaButton = ({
   children,
   size = "lg",
