@@ -14,16 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          customer_email: string
+          customer_name: string
+          customer_whatsapp: string
+          fulfilled_at: string | null
+          id: string
+          metadata: Json
+          paid_at: string | null
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          payment_provider: string | null
+          payment_provider_ref: string | null
+          product_id: string
+          public_id: string
+          status: Database["public"]["Enums"]["order_status"]
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          currency?: string
+          customer_email: string
+          customer_name: string
+          customer_whatsapp: string
+          fulfilled_at?: string | null
+          id?: string
+          metadata?: Json
+          paid_at?: string | null
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          payment_provider?: string | null
+          payment_provider_ref?: string | null
+          product_id: string
+          public_id: string
+          status?: Database["public"]["Enums"]["order_status"]
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          customer_email?: string
+          customer_name?: string
+          customer_whatsapp?: string
+          fulfilled_at?: string | null
+          id?: string
+          metadata?: Json
+          paid_at?: string | null
+          payment_method?: Database["public"]["Enums"]["payment_method"]
+          payment_provider?: string | null
+          payment_provider_ref?: string | null
+          product_id?: string
+          public_id?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          compare_at_cents: number | null
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          price_cents: number
+          slug: string
+        }
+        Insert: {
+          compare_at_cents?: number | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          price_cents: number
+          slug: string
+        }
+        Update: {
+          compare_at_cents?: number | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          price_cents?: number
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_checkout_order: {
+        Args: {
+          p_customer_email: string
+          p_customer_name: string
+          p_customer_whatsapp: string
+          p_payment_method: Database["public"]["Enums"]["payment_method"]
+          p_product_slug: string
+        }
+        Returns: {
+          amount_cents: number
+          currency: string
+          order_id: string
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          product_name: string
+          public_id: string
+          status: Database["public"]["Enums"]["order_status"]
+        }[]
+      }
+      generate_order_public_id: { Args: never; Returns: string }
+      mark_order_awaiting_payment: {
+        Args: {
+          p_metadata?: Json
+          p_order_id: string
+          p_provider: string
+          p_provider_ref: string
+        }
+        Returns: undefined
+      }
+      mark_order_paid: {
+        Args: {
+          p_metadata?: Json
+          p_order_id: string
+          p_provider?: string
+          p_provider_ref?: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      order_status:
+        | "pending_payment"
+        | "awaiting_payment"
+        | "paid"
+        | "fulfilled"
+        | "cancelled"
+        | "refunded"
+      payment_method: "pix" | "card" | "boleto"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +296,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      order_status: [
+        "pending_payment",
+        "awaiting_payment",
+        "paid",
+        "fulfilled",
+        "cancelled",
+        "refunded",
+      ],
+      payment_method: ["pix", "card", "boleto"],
+    },
   },
 } as const

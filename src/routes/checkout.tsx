@@ -18,6 +18,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import {
+  createCheckoutOrder,
+  type CheckoutOrderResult,
+} from "@/lib/checkout";
+import { pdfCover } from "@/components/landing/PdfStack";
+import { CelebrationBurst } from "@/components/CelebrationBurst";
+import { useLaunchSpots } from "@/hooks/use-launch-spots";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -66,28 +73,92 @@ function useCountdown(seconds: number) {
   return `${m}:${s}`;
 }
 
+const CHECKOUT_STEPS = ["Seus dados", "Pagamento", "Liberar acesso"] as const;
+
+function CheckoutProgress({ step }: { step: 1 | 2 | 3 }) {
+  return (
+    <div className="mt-6">
+      <p className="mb-3 text-sm font-medium text-muted-foreground">
+        Falta pouco pra liberar seu acesso
+      </p>
+      <div className="flex items-center gap-2">
+        {CHECKOUT_STEPS.map((label, i) => {
+          const n = (i + 1) as 1 | 2 | 3;
+          const done = step > n;
+          const active = step === n;
+          return (
+            <div key={label} className="flex flex-1 flex-col gap-1.5">
+              <div
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  done || active ? "bg-accent" : "bg-muted"
+                }`}
+              />
+              <span
+                className={`text-[11px] font-semibold sm:text-xs ${
+                  active || done ? "text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                {n}. {label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function CheckoutPage() {
   const [method, setMethod] = useState<MethodId>("pix");
-  const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [order, setOrder] = useState<CheckoutOrderResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const time = useCountdown(15 * 60);
+  const { spots } = useLaunchSpots();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const dataComplete =
+    name.trim().length >= 2 && email.includes("@") && whatsapp.trim().length >= 8;
+  const progressStep: 1 | 2 | 3 = order ? 3 : dataComplete ? 2 : 1;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError(null);
+    try {
+      const result = await createCheckoutOrder({
+        data: {
+          customerName: name,
+          customerEmail: email,
+          customerWhatsapp: whatsapp,
+          paymentMethod: method,
+        },
+      });
+      setOrder(result);
+    } catch (err) {
+      console.error(err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Não foi possível registrar o pedido. Tente novamente.",
+      );
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 900);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Barra de urgência */}
+      <CelebrationBurst active={Boolean(order)} />
       <div className="bg-accent text-accent-foreground">
-        <div className="mx-auto flex max-w-5xl items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold">
-          <Timer className="h-4 w-4" />
-          Oferta de R$27 reservada por <span className="tabular-nums">{time}</span>
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2.5 text-center text-sm font-semibold">
+          <span className="inline-flex items-center gap-2">
+            <Timer className="h-4 w-4" />
+            Oferta de R$27 reservada por <span className="tabular-nums">{time}</span>
+          </span>
+          <span>· Só restam {spots} vagas</span>
         </div>
       </div>
 
@@ -112,21 +183,44 @@ function CheckoutPage() {
           Finalize seu acesso aos 147 treinos
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Preencha seus dados, escolha a forma de pagamento e comece a treinar hoje.
+          Preencha seus dados, escolha a forma de pagamento e liberamos seu acesso.
         </p>
 
+        <CheckoutProgress step={progressStep} />
+
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          {/* Formulário */}
           <div>
-            {submitted ? (
-              <Card className="border-primary/40">
-                <CardContent className="space-y-4 p-8 text-center">
-                  <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
-                  <h2 className="text-xl font-bold">Pedido registrado!</h2>
-                  <p className="text-muted-foreground">
-                    Assim que o pagamento for confirmado, o acesso aos 147 treinos chega no seu
-                    e-mail. Fique de olho na caixa de entrada e no spam.
+            {order ? (
+              <Card className="border-primary/40 animate-in fade-in zoom-in-95 duration-500">
+                <CardContent className="space-y-5 p-8 text-center">
+                  <CheckCircle2 className="mx-auto h-14 w-14 text-primary animate-in zoom-in duration-500" />
+                  <h2 className="text-xl font-bold">Seu material está a caminho!</h2>
+                  <p className="text-sm text-muted-foreground">
+                    Código:{" "}
+                    <span className="font-mono font-semibold text-foreground">
+                      {order.publicId}
+                    </span>
                   </p>
+                  <div className="mx-auto flex max-w-sm items-center gap-4 rounded-lg border border-border bg-muted/40 p-4 text-left">
+                    <img
+                      src={pdfCover}
+                      alt="Capa do guia 147 Treinos"
+                      width={96}
+                      height={128}
+                      className="h-24 w-auto rounded shadow-sm"
+                    />
+                    <div>
+                      <p className="font-heading text-sm font-semibold">
+                        Na fila do seu e-mail
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        O guia com 147 treinos + 3 bônus chega em{" "}
+                        <strong className="text-foreground">{email.trim()}</strong> assim
+                        que o pagamento for confirmado.
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{order.payment.message}</p>
                   <Button asChild variant="outline">
                     <Link to="/">Voltar para a página inicial</Link>
                   </Button>
@@ -144,7 +238,15 @@ function CheckoutPage() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="sm:col-span-2">
                       <Label htmlFor="nome">Nome completo</Label>
-                      <Input id="nome" required placeholder="Seu nome" className="mt-1.5" />
+                      <Input
+                        id="nome"
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Seu nome"
+                        className="mt-1.5"
+                        autoComplete="name"
+                      />
                     </div>
                     <div>
                       <Label htmlFor="email">E-mail (onde vai receber o acesso)</Label>
@@ -152,8 +254,11 @@ function CheckoutPage() {
                         id="email"
                         type="email"
                         required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="voce@email.com"
                         className="mt-1.5"
+                        autoComplete="email"
                       />
                     </div>
                     <div>
@@ -162,8 +267,11 @@ function CheckoutPage() {
                         id="whats"
                         required
                         inputMode="tel"
+                        value={whatsapp}
+                        onChange={(e) => setWhatsapp(e.target.value)}
                         placeholder="(00) 00000-0000"
                         className="mt-1.5"
+                        autoComplete="tel"
                       />
                     </div>
                   </div>
@@ -202,40 +310,34 @@ function CheckoutPage() {
                     })}
                   </div>
 
-                  {method === "card" && (
-                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                      <div className="sm:col-span-2">
-                        <Label htmlFor="num">Número do cartão</Label>
-                        <Input
-                          id="num"
-                          required
-                          inputMode="numeric"
-                          placeholder="0000 0000 0000 0000"
-                          className="mt-1.5"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="val">Validade</Label>
-                        <Input id="val" required placeholder="MM/AA" className="mt-1.5" />
-                      </div>
-                      <div>
-                        <Label htmlFor="cvv">CVV</Label>
-                        <Input id="cvv" required placeholder="123" className="mt-1.5" />
-                      </div>
-                    </div>
-                  )}
-
                   {method === "pix" && (
                     <p className="mt-4 rounded-lg bg-muted p-4 text-sm text-muted-foreground">
-                      O QR Code do Pix aparece na próxima etapa. Pagou, acesso liberado na hora.
+                      O QR Code do Pix será gerado na etapa de pagamento. Pagou, acesso liberado
+                      na hora.
+                    </p>
+                  )}
+                  {method === "card" && (
+                    <p className="mt-4 rounded-lg bg-muted p-4 text-sm text-muted-foreground">
+                      Os dados do cartão serão preenchidos com segurança no provedor de pagamento
+                      (não pedimos número de cartão neste site).
                     </p>
                   )}
                   {method === "boleto" && (
                     <p className="mt-4 rounded-lg bg-muted p-4 text-sm text-muted-foreground">
-                      O boleto é gerado na próxima etapa. A liberação ocorre após a compensação.
+                      O boleto será gerado na etapa de pagamento. A liberação ocorre após a
+                      compensação.
                     </p>
                   )}
                 </section>
+
+                {error && (
+                  <p
+                    role="alert"
+                    className="rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                  >
+                    {error}
+                  </p>
+                )}
 
                 <div>
                   <Button
@@ -245,7 +347,7 @@ function CheckoutPage() {
                     className="w-full bg-accent py-7 text-base font-bold text-accent-foreground hover:bg-accent/90 sm:text-lg"
                   >
                     <Zap className="h-5 w-5" />
-                    {loading ? "Processando..." : "Quero garantir meu acesso por R$27"}
+                    {loading ? "Registrando pedido..." : "Quero garantir meu acesso por R$27"}
                   </Button>
                   <p className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
                     <Lock className="h-3.5 w-3.5" />
@@ -256,17 +358,27 @@ function CheckoutPage() {
             )}
           </div>
 
-          {/* Resumo */}
           <aside className="lg:sticky lg:top-8 lg:self-start">
             <Card>
               <CardContent className="space-y-5 p-6">
-                <div>
-                  <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                    Seu pedido
-                  </div>
-                  <div className="mt-2 font-bold">147 Treinos de Futevôlei em Casa</div>
-                  <div className="text-sm text-muted-foreground">
-                    Guia digital em PDF · acesso vitalício
+                <div className="flex items-center gap-4">
+                  <img
+                    src={pdfCover}
+                    alt="Capa do guia 147 Treinos de Futevôlei em Casa"
+                    width={96}
+                    height={128}
+                    className="h-28 w-auto shrink-0 rounded-md border border-border shadow-sm"
+                  />
+                  <div>
+                    <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                      Seu pedido
+                    </div>
+                    <div className="mt-1 font-heading font-bold leading-snug">
+                      147 Treinos de Futevôlei em Casa
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Guia · acesso vitalício · liberação após pagamento
+                    </p>
                   </div>
                 </div>
 

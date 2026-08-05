@@ -1,9 +1,11 @@
 import { Flame } from "lucide-react";
 
 import { useCountdown } from "@/hooks/use-countdown";
+import { useLaunchSpots } from "@/hooks/use-launch-spots";
 
 export function UrgencyBar() {
   const { hours, minutes, seconds } = useCountdown();
+  const { spots } = useLaunchSpots();
 
   return (
     <div className="w-full bg-foreground py-2 text-background">
@@ -16,6 +18,9 @@ export function UrgencyBar() {
           {hours}:{minutes}:{seconds}
         </span>
         <span className="opacity-80">· De R$97 por R$27</span>
+        <span className="font-semibold text-accent">
+          · Só restam {spots} vagas
+        </span>
       </div>
     </div>
   );

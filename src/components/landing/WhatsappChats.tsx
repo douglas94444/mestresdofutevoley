@@ -26,7 +26,7 @@ const chats: Chat[] = [
     initial: "F",
     messages: [
       { from: "them", text: "Eu tava sem tempo de ir na quadra…", time: "14:32" },
-      { from: "them", text: "Abri o PDF, escolhi um treino de 15 min e pronto.", time: "14:33" },
+      { from: "them", text: "Abri o guia, escolhi um treino de 15 min e pronto.", time: "14:33" },
       { from: "me", text: "É pra isso mesmo, Fê 🤩", time: "14:35" },
       { from: "them", text: "Meu fôlego no jogo de sábado mudou demais.", time: "14:37" },
     ],

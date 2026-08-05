@@ -153,3 +153,17 @@
     font-family: var(--font-heading);
   }
 }
+
+@keyframes cta-pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.66 0.2 45 / 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 10px oklch(0.66 0.2 45 / 0);
+  }
+}
+
+.cta-pulse {
+  animation: cta-pulse-ring 1.6s ease-out 2;
+}

@@ -1,24 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
-  Calendar,
   CheckCircle,
-  Clock,
   Download,
-  Dumbbell,
   Flame,
-  Heart,
-  ListChecks,
   Mail,
   MessageCircle,
   PlayCircle,
   Shield,
   Sparkles,
   Star,
-  Target,
   Timer,
   Trophy,
-  Zap,
 } from "lucide-react";
 
 import {
@@ -27,63 +20,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CtaButton, FootballIcon, SectionBadge } from "@/components/landing/shared";
 import { CountdownBoxes, UrgencyBar } from "@/components/landing/UrgencyBar";
 import { TestimonialCarousel } from "@/components/landing/TestimonialCarousel";
 import { WhatsappChats } from "@/components/landing/WhatsappChats";
+import { PdfStack } from "@/components/landing/PdfStack";
+import { WorkoutPreview } from "@/components/landing/WorkoutPreview";
+import { TrainingFronts } from "@/components/landing/TrainingFronts";
+import { WhatYouGet } from "@/components/landing/WhatYouGet";
+import { SocialProofTicker } from "@/components/landing/SocialProofTicker";
+import { StickyCta } from "@/components/landing/StickyCta";
+import { BonusUnlock } from "@/components/landing/BonusUnlock";
+import { ImpactBanner } from "@/components/landing/ImpactBanner";
 
-import heroImage from "@/assets/hero-futevolei.jpg";
 import bonusTabela from "@/assets/bonus-tabela.jpg";
 import bonusAquecimento from "@/assets/bonus-aquecimento.jpg";
 import bonusChecklist from "@/assets/bonus-checklist.jpg";
-
-const includedItems = [
-  "147 treinos completos de futevôlei pra fazer em casa",
-  "35 treinos de controle de bola, domínio e embaixadinha",
-  "30 treinos de técnica: saque, ataque e defesa",
-  "30 treinos de agilidade e tempo de reação",
-  "32 treinos de resistência e condicionamento",
-  "20 treinos de aquecimento e mobilidade",
-  "Progressão do zero ao avançado, sem pular etapa",
-  "Séries, repetições e tempo indicados em cada treino",
-  "Arquivo em PDF pronto pra usar no celular ou imprimir",
-  "Acesso vitalício, sem mensalidade e sem prazo",
-  "Bônus: tabela de evolução, aquecimento express e treino relâmpago",
-];
-
-const trainingCategories = [
-  {
-    number: "35",
-    title: "Controle de Bola",
-    description: "Domínio, embaixadinhas e toque de precisão.",
-    icon: FootballIcon,
-  },
-  {
-    number: "30",
-    title: "Técnica e Fundamentos",
-    description: "Saque, ataque e defesa adaptados pra qualquer espaço.",
-    icon: Target,
-  },
-  {
-    number: "30",
-    title: "Agilidade e Reflexo",
-    description: "Reação rápida pra chegar em toda bola.",
-    icon: Zap,
-  },
-  {
-    number: "32",
-    title: "Resistência e Condicionamento",
-    description: "Fôlego pra aguentar o jogo inteiro.",
-    icon: Flame,
-  },
-  {
-    number: "20",
-    title: "Aquecimento e Mobilidade",
-    description: "Prepara o corpo e evita lesão antes de qualquer treino.",
-    icon: Heart,
-  },
-];
 
 const benefits = [
   "Treine sem quadra, sem rede e sem equipamento — só uma bola",
@@ -106,20 +58,20 @@ const audienceItems = [
 const steps = [
   {
     step: "PASSO 01",
-    title: "Receba no e-mail",
-    description: "O material chega no seu e-mail logo após a confirmação do pagamento.",
+    title: "Receba o material no e-mail",
+    description: "O guia chega no seu e-mail logo após a confirmação do pagamento.",
     icon: Mail,
   },
   {
     step: "PASSO 02",
-    title: "Baixe o PDF",
-    description: "Guia completo pra usar direto no celular, tablet ou impresso.",
+    title: "Abra o guia",
+    description: "Usa no celular, tablet ou imprime — sem app, sem login.",
     icon: Download,
   },
   {
     step: "PASSO 03",
-    title: "Treine dia após dia",
-    description: "Escolhe o treino do dia, abre e executa. Sem preparação nenhuma.",
+    title: "Escolhe o treino e executa",
+    description: "Nome, tempo e séries já estão na página. É só seguir.",
     icon: PlayCircle,
   },
 ];
@@ -131,7 +83,6 @@ const bonuses = [
     description: "Acompanhe sua evolução treino a treino, semana a semana.",
     price: "R$37,00",
     image: bonusTabela,
-    icon: Calendar,
   },
   {
     number: "02",
@@ -139,7 +90,6 @@ const bonuses = [
     description: "Pra ativar o corpo antes de qualquer treino, mesmo com pressa.",
     price: "R$47,00",
     image: bonusAquecimento,
-    icon: Clock,
   },
   {
     number: "03",
@@ -147,7 +97,6 @@ const bonuses = [
     description: "Pros dias corridos, quando o tempo é curto mas a vontade não falta.",
     price: "R$27,00",
     image: bonusChecklist,
-    icon: ListChecks,
   },
 ];
 
@@ -169,7 +118,8 @@ const faq = [
   },
   {
     question: "Como recebo o material?",
-    answer: "Acesso imediato assim que o pagamento é confirmado, direto no seu e-mail.",
+    answer:
+      "Você recebe o material no e-mail assim que o pagamento é confirmado. Abre no celular ou imprime.",
   },
   {
     question: "Por quanto tempo tenho acesso?",
@@ -194,7 +144,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "147 treinos de futevôlei prontos pra fazer em casa: controle de bola, técnica, agilidade, resistência e mobilidade. Sem quadra, sem equipamento. Acesso imediato por R$27.",
+          "Guia com 147 treinos de futevôlei pra fazer em casa: controle, técnica, agilidade, resistência e mobilidade. Sem quadra. Acesso imediato por R$27.",
       },
       {
         property: "og:title",
@@ -203,7 +153,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Um guia completo com 147 treinos pra evoluir no futevôlei sem quadra e sem equipamento. Acesso imediato e garantia de 7 dias.",
+          "147 treinos nomeados pra evoluir no futevôlei sem quadra. Acesso imediato e garantia de 7 dias.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -219,73 +169,55 @@ function Index() {
         <UrgencyBar />
       </div>
 
-      <main className="mx-auto max-w-5xl px-4">
-        {/* Hero */}
-        <section className="py-10 sm:py-16">
-          <div className="flex flex-col items-center text-center">
-            <SectionBadge icon={Sparkles}>Treino em casa · Do zero ao avançado</SectionBadge>
-            <h1 className="mt-6 font-heading text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl">
-              <span className="text-foreground">147 Treinos de</span>
-              <br />
-              <span className="text-primary">Futevôlei em Casa</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              Treinos práticos pra você evoluir no <strong className="text-foreground">controle de bola</strong>,
-              resistência e agilidade — sem quadra, sem equipamento e sem enrolação.
-            </p>
+      {/* Hero — full-bleed atmosphere + product mockup */}
+      <section className="relative overflow-hidden border-b border-border">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.53_0.19_145_/_0.12),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_oklch(0.66_0.20_45_/_0.10),_transparent_50%)]"
+        />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 py-12 text-center sm:py-16 md:py-20">
+          <p className="font-heading text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+            147 Treinos
+          </p>
+          <h1 className="mt-3 font-heading text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-[3.25rem]">
+            Futevôlei em Casa
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            Um Guia pratico com treinos nomeados por séries, tempo e progressão pra você evoluir
+            na sua casa, sem quadra e sem equipamento.
+          </p>
+
+          <div className="mt-10 w-full">
+            <PdfStack size="hero" />
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-3xl border border-border shadow-2xl shadow-foreground/5">
-            <img
-              src={heroImage}
-              alt="Atleta treinando futevôlei em casa na sala com uma bola"
-              width={1024}
-              height={768}
-              className="w-full object-cover"
-              loading="eager"
-            />
+          <div className="mt-10 flex flex-col items-center gap-3">
+            <div className="flex items-baseline gap-3">
+              <span className="text-base text-muted-foreground line-through">R$97</span>
+              <span className="font-heading text-5xl font-extrabold text-accent">R$27</span>
+            </div>
+            <p className="text-sm text-muted-foreground">pagamento único · acesso imediato</p>
           </div>
 
-          <div className="mt-10 flex flex-col items-center text-center">
-            <div className="flex items-center gap-3">
-              <span className="text-base text-muted-foreground line-through">R$97,00</span>
-              <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-bold text-primary">
-                −72%
-              </span>
-            </div>
-            <p className="mt-2 font-heading text-6xl font-extrabold text-accent sm:text-7xl">
-              R$27
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              pagamento único · acesso imediato
-            </p>
-
-            <div className="mt-8">
-              <CtaButton size="lg" className="px-10 py-7 text-lg">
-                Quero os 147 treinos
-                <ArrowRight className="h-5 w-5" />
-              </CtaButton>
-            </div>
-
-            <p className="mt-8 text-sm font-medium text-muted-foreground">Esta oferta acaba em</p>
-            <div className="mt-3">
-              <CountdownBoxes />
-            </div>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-8">
-              <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Shield className="h-4 w-4 text-primary" /> 7 dias de garantia
-              </span>
-              <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <CheckCircle className="h-4 w-4 text-primary" /> Acesso imediato
-              </span>
-              <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Sparkles className="h-4 w-4 text-primary" /> Bônus incluso
-              </span>
-            </div>
+          <div className="mt-8">
+            <CtaButton size="lg" pulse className="px-10 py-7 text-lg">
+              Quero os 147 treinos
+              <ArrowRight className="h-5 w-5" />
+            </CtaButton>
           </div>
-        </section>
 
+          <p className="mt-8 text-sm font-medium text-muted-foreground">Esta oferta acaba em</p>
+          <div className="mt-3">
+            <CountdownBoxes />
+          </div>
+        </div>
+      </section>
+
+      <SocialProofTicker />
+
+      <ImpactBanner />
+
+      <main className="mx-auto max-w-5xl px-4 pb-24 md:pb-0">
         {/* Depoimentos */}
         <section className="py-14 sm:py-20">
           <div className="text-center">
@@ -300,61 +232,11 @@ function Index() {
           <TestimonialCarousel />
         </section>
 
-        {/* O que você recebe */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Dumbbell}>Conteúdo</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              O que você recebe
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-3 sm:grid-cols-2">
-            {includedItems.map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all hover:shadow-md"
-              >
-                <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <p className="text-foreground">{item}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <WhatYouGet />
 
-        {/* Frentes de treino */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Target}>Frentes de treino</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              147 treinos divididos em 5 frentes de jogo
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {trainingCategories.map((category) => (
-              <Card
-                key={category.title}
-                className="group overflow-hidden border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                      <category.icon className="h-5 w-5" />
-                    </div>
-                    <span className="font-heading text-4xl font-extrabold text-primary">
-                      {category.number}
-                    </span>
-                  </div>
-                  <CardTitle className="mt-4 font-heading text-xl">{category.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base leading-relaxed">
-                    {category.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        <WorkoutPreview />
+
+        <TrainingFronts />
 
         {/* Benefícios */}
         <section className="py-14 sm:py-20">
@@ -386,19 +268,14 @@ function Index() {
               Pra quem é este material?
             </h2>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          <ul className="mx-auto mt-10 max-w-3xl divide-y divide-border border-y border-border">
             {audienceItems.map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all hover:shadow-md"
-              >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <CheckCircle className="h-4 w-4" />
-                </div>
+              <li key={item} className="flex items-start gap-3 py-4">
+                <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                 <p className="text-foreground">{item}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         {/* Como funciona */}
@@ -406,25 +283,19 @@ function Index() {
           <div className="text-center">
             <SectionBadge icon={Timer}>Passo a passo</SectionBadge>
             <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Como funciona o acesso
+              Do e-mail pro primeiro treino
             </h2>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          <div className="mt-10 grid gap-8 sm:grid-cols-3">
             {steps.map((step) => (
-              <Card key={step.step} className="border-border bg-card shadow-sm">
-                <CardHeader className="pb-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <step.icon className="h-5 w-5" />
-                  </div>
-                  <span className="mt-3 text-xs font-bold uppercase tracking-wide text-accent">
-                    {step.step}
-                  </span>
-                  <CardTitle className="font-heading text-xl">{step.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base">{step.description}</CardDescription>
-                </CardContent>
-              </Card>
+              <div key={step.step} className="text-center sm:text-left">
+                <step.icon className="mx-auto h-6 w-6 text-accent sm:mx-0" />
+                <p className="mt-3 text-xs font-bold uppercase tracking-wide text-primary">
+                  {step.step}
+                </p>
+                <h3 className="mt-1 font-heading text-xl font-bold">{step.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
+              </div>
             ))}
           </div>
         </section>
@@ -440,77 +311,20 @@ function Index() {
           <WhatsappChats />
         </section>
 
-        {/* Bônus */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Sparkles}>Bônus exclusivos</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Comprando hoje, você ganha{" "}
-              <span className="text-primary">R$111,00 em bônus</span>{" "}
-              <span className="text-accent">GRÁTIS</span>
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-              3 materiais extras liberados junto com os 147 treinos — sem custo adicional.
-            </p>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {bonuses.map((bonus) => (
-              <Card
-                key={bonus.number}
-                className="relative overflow-hidden border-border bg-card p-0 shadow-sm"
-              >
-                <div className="absolute right-4 top-4 z-10 rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
-                  GRÁTIS
-                </div>
-                <img
-                  src={bonus.image}
-                  alt={bonus.title}
-                  width={1024}
-                  height={768}
-                  loading="lazy"
-                  className="h-40 w-full object-cover"
-                />
-                <CardHeader className="pb-3">
-                  <span className="text-xs font-bold uppercase tracking-wide text-primary">
-                    Bônus #{bonus.number}
-                  </span>
-                  <CardTitle className="font-heading text-xl">{bonus.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="pb-6">
-                  <CardDescription className="text-base">{bonus.description}</CardDescription>
-                  <p className="mt-4 text-sm">
-                    <span className="text-muted-foreground line-through">{bonus.price}</span>{" "}
-                    <span className="font-heading font-bold text-accent">GRÁTIS hoje</span>
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        <BonusUnlock bonuses={bonuses} />
 
         {/* Oferta */}
         <section id="oferta" className="py-14 sm:py-20">
-          <div className="relative overflow-hidden rounded-3xl bg-foreground px-6 py-12 text-background shadow-2xl sm:px-12 sm:py-16">
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
+          <div className="relative overflow-hidden rounded-3xl bg-foreground px-6 py-12 text-background sm:px-12 sm:py-16">
             <div className="relative grid items-center gap-10 md:grid-cols-2">
-              <div className="overflow-hidden rounded-2xl border border-background/10 shadow-xl">
-                <img
-                  src={heroImage}
-                  alt="Guia de 147 treinos de futevôlei em casa"
-                  width={1024}
-                  height={768}
-                  loading="lazy"
-                  className="w-full object-cover"
-                />
-              </div>
+              <PdfStack size="offer" />
               <div className="text-center md:text-left">
                 <SectionBadge icon={Flame}>Oferta de lançamento</SectionBadge>
                 <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
                   147 Treinos de Futevôlei em Casa
                 </h2>
                 <p className="mt-3 text-background/80">
-                  Guia completo em PDF + 3 bônus, com acesso vitalício e liberação imediata.
+                  Material no e-mail · abre no celular · 3 bônus · acesso vitalício
                 </p>
                 <p className="mt-6 text-base text-background/70 line-through">R$97,00</p>
                 <p className="font-heading text-5xl font-extrabold text-accent sm:text-6xl">R$27</p>
@@ -524,7 +338,7 @@ function Index() {
                   </CtaButton>
                 </div>
                 <p className="mt-5 text-sm text-background/60">
-                  Pix · Cartão de crédito · Boleto — acesso liberado após a confirmação
+                  Pix · Cartão · Boleto — acesso liberado após a confirmação
                 </p>
               </div>
             </div>
@@ -572,7 +386,6 @@ function Index() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-border bg-muted/30 py-8">
         <div className="mx-auto max-w-5xl px-4 text-center">
           <div className="flex items-center justify-center gap-2">
@@ -584,7 +397,7 @@ function Index() {
             </span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
-            Produto digital — guia em PDF de acesso imediato.
+            Produto digital — guia completo de acesso imediato.
           </p>
           <p className="mt-1 text-sm font-bold text-foreground">De R$97 por R$27</p>
           <div className="mt-4">
@@ -592,6 +405,8 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      <StickyCta />
     </div>
   );
 }

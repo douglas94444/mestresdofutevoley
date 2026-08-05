@@ -30,15 +30,17 @@ export const CtaButton = ({
   children,
   size = "lg",
   className = "",
+  pulse = false,
 }: {
   children: React.ReactNode;
   size?: "default" | "sm" | "lg" | "icon";
   className?: string;
+  pulse?: boolean;
 }) => (
   <Button
     asChild
     size={size}
-    className={`rounded-full bg-accent text-accent-foreground font-heading font-semibold shadow-lg shadow-accent/20 transition-all hover:bg-accent/90 hover:shadow-accent/30 hover:-translate-y-0.5 ${className}`}
+    className={`rounded-full bg-accent text-accent-foreground font-heading font-semibold shadow-lg shadow-accent/20 transition-all hover:bg-accent/90 hover:shadow-accent/30 hover:-translate-y-0.5 ${pulse ? "cta-pulse" : ""} ${className}`}
   >
     <a href={CTA_HREF} className="gap-2">
       {children}
