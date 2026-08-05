@@ -1,18 +1,5 @@
+import { ArrowRight, MessageCircle, Shield, Star } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  CheckCircle,
-  Download,
-  Flame,
-  Mail,
-  MessageCircle,
-  PlayCircle,
-  Shield,
-  Sparkles,
-  Star,
-  Timer,
-  Trophy,
-} from "lucide-react";
 
 import {
   Accordion,
@@ -21,84 +8,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CtaButton, FootballIcon, SectionBadge } from "@/components/landing/shared";
-import { CountdownBoxes, UrgencyBar } from "@/components/landing/UrgencyBar";
+import { UrgencyBar } from "@/components/landing/UrgencyBar";
 import { TestimonialCarousel } from "@/components/landing/TestimonialCarousel";
 import { WhatsappChats } from "@/components/landing/WhatsappChats";
-import { PdfStack } from "@/components/landing/PdfStack";
 import { WorkoutPreview } from "@/components/landing/WorkoutPreview";
 import { TrainingFronts } from "@/components/landing/TrainingFronts";
-import { WhatYouGet } from "@/components/landing/WhatYouGet";
-import { SocialProofTicker } from "@/components/landing/SocialProofTicker";
 import { StickyCta } from "@/components/landing/StickyCta";
-import { BonusUnlock } from "@/components/landing/BonusUnlock";
-import { ImpactBanner } from "@/components/landing/ImpactBanner";
-
-import bonusTabela from "@/assets/bonus-tabela.jpg";
-import bonusAquecimento from "@/assets/bonus-aquecimento.jpg";
-import bonusChecklist from "@/assets/bonus-checklist.jpg";
-
-const benefits = [
-  "Treine sem quadra, sem rede e sem equipamento — só uma bola",
-  "Cada treino já vem com o que fazer, quantas vezes e por quanto tempo",
-  "Acesso vitalício: treine no seu ritmo, sem prazo pra terminar",
-  "Progressão do zero ao avançado dentro do mesmo material",
-  "Cabe em qualquer espaço: sala, quintal, varanda ou garagem",
-  "De 15 a 40 minutos por treino — encaixa em qualquer rotina",
-];
-
-const audienceItems = [
-  "Joga (ou quer começar a jogar) futevôlei e não tem areia por perto",
-  "A rotina não fecha com o horário da quadra",
-  "Quer chegar mais afiado tecnicamente pro próximo jogo",
-  "Prefere treinar no próprio tempo e espaço",
-  "Já treina, mas sente que falta constância",
-  "Tá começando agora e quer construir base sem enrolação",
-];
-
-const steps = [
-  {
-    step: "PASSO 01",
-    title: "Receba o material no e-mail",
-    description: "O guia chega no seu e-mail logo após a confirmação do pagamento.",
-    icon: Mail,
-  },
-  {
-    step: "PASSO 02",
-    title: "Abra o guia",
-    description: "Usa no celular, tablet ou imprime — sem app, sem login.",
-    icon: Download,
-  },
-  {
-    step: "PASSO 03",
-    title: "Escolhe o treino e executa",
-    description: "Nome, tempo e séries já estão na página. É só seguir.",
-    icon: PlayCircle,
-  },
-];
-
-const bonuses = [
-  {
-    number: "01",
-    title: "Tabela de Evolução Semanal",
-    description: "Acompanhe sua evolução treino a treino, semana a semana.",
-    price: "R$37,00",
-    image: bonusTabela,
-  },
-  {
-    number: "02",
-    title: "Aquecimento Expresso de 5 Minutos",
-    description: "Pra ativar o corpo antes de qualquer treino, mesmo com pressa.",
-    price: "R$47,00",
-    image: bonusAquecimento,
-  },
-  {
-    number: "03",
-    title: "Checklist Treino Relâmpago (15 min)",
-    description: "Pros dias corridos, quando o tempo é curto mas a vontade não falta.",
-    price: "R$27,00",
-    image: bonusChecklist,
-  },
-];
+import { SocialProofTicker } from "@/components/landing/SocialProofTicker";
+import { OfertaHero } from "@/components/oferta/OfertaHero";
+import { OfertaAbout } from "@/components/oferta/OfertaAbout";
+import { OfertaPillars } from "@/components/oferta/OfertaPillars";
+import { OfertaForWho } from "@/components/oferta/OfertaForWho";
+import { OfertaOffer } from "@/components/oferta/OfertaOffer";
+import { OfertaGuarantee } from "@/components/oferta/OfertaGuarantee";
 
 const faq = [
   {
@@ -140,20 +62,20 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "147 Treinos de Futevôlei em Casa | De R$97 por R$27" },
+      { title: "147 Treinos de Futevôlei em Casa | Quero meu acesso" },
       {
         name: "description",
         content:
-          "Guia com 147 treinos de futevôlei pra fazer em casa: controle, técnica, agilidade, resistência e mobilidade. Sem quadra. Acesso imediato por R$27.",
+          "Organize seu treino, evolua com constância e conquiste o jogo que você deseja. Guia com 147 treinos pra fazer em casa — de R$97 por R$27.",
       },
       {
         property: "og:title",
-        content: "147 Treinos de Futevôlei em Casa | De R$97 por R$27",
+        content: "147 Treinos de Futevôlei em Casa | Quero meu acesso",
       },
       {
         property: "og:description",
         content:
-          "147 treinos nomeados pra evoluir no futevôlei sem quadra. Acesso imediato e garantia de 7 dias.",
+          "Com um guia que já diz o que fazer, por quanto tempo e em qual ordem. Ideal pra quem não pode perder tempo.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -169,240 +91,96 @@ function Index() {
         <UrgencyBar />
       </div>
 
-      {/* Hero — full-bleed atmosphere + product mockup */}
-      <section className="relative overflow-hidden border-b border-border">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.53_0.19_145_/_0.12),_transparent_55%),radial-gradient(ellipse_at_bottom_right,_oklch(0.66_0.20_45_/_0.10),_transparent_50%)]"
-        />
-        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 py-12 text-center sm:py-16 md:py-20">
-          <p className="font-heading text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-            147 Treinos
+      <OfertaHero />
+
+      <SocialProofTicker />
+
+      <OfertaAbout />
+
+      <OfertaPillars />
+
+      <div className="mx-auto max-w-5xl px-4">
+        <WorkoutPreview />
+        <TrainingFronts />
+      </div>
+
+      <OfertaForWho />
+
+      <section className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
+        <div className="text-center">
+          <SectionBadge icon={Star}>Olha o que aconteceu</SectionBadge>
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+            Quem aplicou o método
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+            Gente que parou de esperar a quadra abrir e começou a evoluir dentro de casa.
           </p>
-          <h1 className="mt-3 font-heading text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-[3.25rem]">
-            Futevôlei em Casa
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Um Guia pratico com treinos nomeados por séries, tempo e progressão pra você evoluir
-            na sua casa, sem quadra e sem equipamento.
+        </div>
+        <TestimonialCarousel />
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-10 sm:pb-14">
+        <div className="text-center">
+          <SectionBadge icon={MessageCircle}>Você nunca treina sozinho</SectionBadge>
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+            Conversas reais nessa jornada
+          </h2>
+        </div>
+        <WhatsappChats />
+      </section>
+
+      <OfertaOffer />
+
+      <OfertaGuarantee />
+
+      <section className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
+        <div className="text-center">
+          <SectionBadge icon={Shield}>Dúvidas</SectionBadge>
+          <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+            Perguntas frequentes
+          </h2>
+        </div>
+        <div className="mx-auto mt-10 max-w-3xl">
+          <Accordion type="single" collapsible className="w-full">
+            {faq.map((item, index) => (
+              <AccordionItem key={item.question} value={`item-${index}`} className="border-border">
+                <AccordionTrigger className="text-left font-heading text-base font-semibold hover:no-underline">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{item.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-foreground px-4 py-14 text-background">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-foreground">
+            <FootballIcon className="h-6 w-6" />
+          </div>
+          <h2 className="mt-5 font-heading text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Pronto pra evoluir em casa?
+          </h2>
+          <p className="mt-3 max-w-xl text-background/75">
+            147 treinos · 3 bônus · acesso vitalício · garantia de 7 dias
           </p>
-
-          <div className="mt-10 w-full">
-            <PdfStack size="hero" />
-          </div>
-
-          <div className="mt-10 flex flex-col items-center gap-3">
-            <div className="flex items-baseline gap-3">
-              <span className="text-base text-muted-foreground line-through">R$97</span>
-              <span className="font-heading text-5xl font-extrabold text-accent">R$27</span>
-            </div>
-            <p className="text-sm text-muted-foreground">pagamento único · acesso imediato</p>
-          </div>
-
+          <p className="mt-6 font-heading text-5xl font-extrabold text-accent">R$27</p>
           <div className="mt-8">
-            <CtaButton size="lg" pulse className="px-10 py-7 text-lg">
-              Quero os 147 treinos
+            <CtaButton size="lg" pulse className="px-12 py-7 text-lg uppercase tracking-wide">
+              Quero meu acesso
               <ArrowRight className="h-5 w-5" />
             </CtaButton>
-          </div>
-
-          <p className="mt-8 text-sm font-medium text-muted-foreground">Esta oferta acaba em</p>
-          <div className="mt-3">
-            <CountdownBoxes />
           </div>
         </div>
       </section>
 
-      <SocialProofTicker />
-
-      <ImpactBanner />
-
-      <main className="mx-auto max-w-5xl px-4 pb-24 md:pb-0">
-        {/* Depoimentos */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Star}>Depoimentos reais</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Quem já treina com o guia
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-              Gente que parou de esperar a quadra abrir e começou a evoluir dentro de casa.
-            </p>
-          </div>
-          <TestimonialCarousel />
-        </section>
-
-        <WhatYouGet />
-
-        <WorkoutPreview />
-
-        <TrainingFronts />
-
-        {/* Benefícios */}
-        <section className="py-14 sm:py-20">
-          <div className="rounded-3xl bg-primary/5 px-6 py-12 sm:px-12 sm:py-16">
-            <div className="text-center">
-              <SectionBadge icon={Sparkles}>Pra você</SectionBadge>
-              <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-                Por que esse método funciona
-              </h2>
-            </div>
-            <ul className="mx-auto mt-10 grid max-w-3xl gap-3">
-              {benefits.map((benefit) => (
-                <li key={benefit} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                    <CheckCircle className="h-4 w-4" />
-                  </span>
-                  <span className="text-foreground">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* Pra quem é */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Trophy}>Público</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Pra quem é este material?
-            </h2>
-          </div>
-          <ul className="mx-auto mt-10 max-w-3xl divide-y divide-border border-y border-border">
-            {audienceItems.map((item) => (
-              <li key={item} className="flex items-start gap-3 py-4">
-                <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <p className="text-foreground">{item}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Como funciona */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Timer}>Passo a passo</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Do e-mail pro primeiro treino
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-8 sm:grid-cols-3">
-            {steps.map((step) => (
-              <div key={step.step} className="text-center sm:text-left">
-                <step.icon className="mx-auto h-6 w-6 text-accent sm:mx-0" />
-                <p className="mt-3 text-xs font-bold uppercase tracking-wide text-primary">
-                  {step.step}
-                </p>
-                <h3 className="mt-1 font-heading text-xl font-bold">{step.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Conversas reais */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={MessageCircle}>Conversas reais</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Quem mudou o treino com o guia
-            </h2>
-          </div>
-          <WhatsappChats />
-        </section>
-
-        <BonusUnlock bonuses={bonuses} />
-
-        {/* Oferta */}
-        <section id="oferta" className="py-14 sm:py-20">
-          <div className="relative overflow-hidden rounded-3xl bg-foreground px-6 py-12 text-background sm:px-12 sm:py-16">
-            <div className="relative grid items-center gap-10 md:grid-cols-2">
-              <PdfStack size="offer" />
-              <div className="text-center md:text-left">
-                <SectionBadge icon={Flame}>Oferta de lançamento</SectionBadge>
-                <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-                  147 Treinos de Futevôlei em Casa
-                </h2>
-                <p className="mt-3 text-background/80">
-                  Material no e-mail · abre no celular · 3 bônus · acesso vitalício
-                </p>
-                <p className="mt-6 text-base text-background/70 line-through">R$97,00</p>
-                <p className="font-heading text-5xl font-extrabold text-accent sm:text-6xl">R$27</p>
-                <p className="mt-1 text-sm text-background/80">
-                  à vista no Pix ou parcelado no cartão
-                </p>
-                <div className="mt-8">
-                  <CtaButton size="lg" className="px-10 py-7 text-lg shadow-accent/30">
-                    Quero garantir meu acesso
-                    <ArrowRight className="h-5 w-5" />
-                  </CtaButton>
-                </div>
-                <p className="mt-5 text-sm text-background/60">
-                  Pix · Cartão · Boleto — acesso liberado após a confirmação
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Garantia */}
-        <section className="py-8">
-          <div className="flex flex-col items-center gap-4 rounded-3xl border border-border bg-secondary/40 px-6 py-8 text-center sm:flex-row sm:text-left">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
-              <Shield className="h-8 w-8" />
-            </div>
-            <div>
-              <h3 className="font-heading text-xl font-bold">7 dias de garantia · risco zero</h3>
-              <p className="mt-1 text-muted-foreground">
-                Não gostou? É só mandar uma mensagem em até 7 dias e devolvemos 100% do valor, sem
-                perguntas.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="py-14 sm:py-20">
-          <div className="text-center">
-            <SectionBadge icon={Shield}>Dúvidas</SectionBadge>
-            <h2 className="mt-4 font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Perguntas frequentes
-            </h2>
-          </div>
-          <div className="mx-auto mt-10 max-w-3xl">
-            <Accordion type="single" collapsible className="w-full">
-              {faq.map((item, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border-border">
-                  <AccordionTrigger className="text-left font-heading text-base font-semibold hover:no-underline">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
-      </main>
-
       <footer className="border-t border-border bg-muted/30 py-8">
         <div className="mx-auto max-w-5xl px-4 text-center">
-          <div className="flex items-center justify-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <FootballIcon className="h-4 w-4" />
-            </div>
-            <span className="font-heading text-base font-bold">
-              147 Treinos de Futevôlei em Casa
-            </span>
-          </div>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="font-heading text-base font-bold">147 Treinos de Futevôlei em Casa</p>
+          <p className="mt-2 text-sm text-muted-foreground">
             Produto digital — guia completo de acesso imediato.
           </p>
-          <p className="mt-1 text-sm font-bold text-foreground">De R$97 por R$27</p>
-          <div className="mt-4">
-            <CtaButton size="sm">Garantir acesso</CtaButton>
-          </div>
         </div>
       </footer>
 
