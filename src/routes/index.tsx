@@ -230,7 +230,7 @@ function Index() {
               <span className="text-primary">Futevôlei em Casa</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              Treinos prontos pra você evoluir no <strong className="text-foreground">controle de bola</strong>,
+              Treinos práticos pra você evoluir no <strong className="text-foreground">controle de bola</strong>,
               resistência e agilidade — sem quadra, sem equipamento e sem enrolação.
             </p>
           </div>
